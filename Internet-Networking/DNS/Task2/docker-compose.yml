@@ -1,0 +1,12 @@
+version: '3.8'  #version of the docker compose
+
+services:
+  bind9: #this creates a container of bind9 
+    image: internetsystemsconsortium/bind9:9.18 # this will pull us the docker hub official image of bind 9. with the version
+    container_name: dns-server # this will give us a name to our container
+    volumes: # mounting the configuration folders
+      - ./bind:/etc/bind
+    ports:
+      - "53:53/udp" # udp --> fast unreliable 
+      - "53:53/tcp" # tcp --> reliable, ordered and error checked 
+    restart: unless-stopped
